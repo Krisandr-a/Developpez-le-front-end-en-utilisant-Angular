@@ -1,3 +1,6 @@
+//The root module of the application.
+// Configures the app by declaring components, importing the necessary modules,
+// and specifying the root component to bootstrap
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
