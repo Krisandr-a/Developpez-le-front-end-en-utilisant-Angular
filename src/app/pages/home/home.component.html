@@ -23,6 +23,13 @@
 
 <h2>Medals per Country</h2>
 <h3>Number of JOs</h3>
+<p>{{ totalOlympicGames }}</p>
+
+
 <h3>Number of countries</h3>
-  
+<p>{{ totalCountries }}</p>
+
+<div *ngFor="let country of olympics$ | async">
+  <a [routerLink]="['/details', country.country]">{{ country.country }}</a>: {{ totalMedalsByCountry[country.country] }} Medals
+</div>
 

@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Country } from '../models/Olympic';
 
-interface Participation {
+/*interface Participation {
   id: number;
   year: number;
   city: string;
@@ -15,24 +16,17 @@ export interface Country {
   id: number;
   country: string;
   participations: Participation[];
-}
+} */
 
 @Injectable({
   providedIn: 'root',
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  
   // BehaviorSubject holds the latest data
   // $ : naming convention that indicates an observable or observable-like
-  
-  //Original
-  //private olympics$ = new BehaviorSubject<any>(undefined);
-  
-  //Modified
   private olympics$ = new BehaviorSubject<Country[] | null>(null);
 
-  
 
   constructor(private http: HttpClient) {}
 
@@ -63,4 +57,27 @@ export class OlympicService {
   getOlympics() {
     return this.olympics$.asObservable();
   }
+  
+  findCountryDetails(name: string) {
+    const countries = this.olympics$.getValue(); // Retrieve the current data from BehaviorSubject
+
+    if (!countries) {
+      console.error('Olympics data not loaded.');
+      return null; // Return early if data isn't available
+    }
+  
+    const country = countries.find((c) => c.country === name);
+  
+    if (!country) {
+      console.error(`Country ${name} not found.`);
+      return null;
+    }
+  
+    const totalParticipations = country.participations.length;
+    const totalMedals = country.participations.reduce((sum, p) => sum + p.medalsCount, 0);
+    const totalAthletes = country.participations.reduce((sum, p) => sum + p.athleteCount, 0);
+  
+    return { totalParticipations, totalMedals, totalAthletes };
+  }
+  
 }
