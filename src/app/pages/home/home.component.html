@@ -29,7 +29,8 @@
 <h3>Number of countries</h3>
 <p>{{ totalCountries }}</p>
 
-<div *ngFor="let country of olympics$ | async">
-  <a [routerLink]="['/details', country.country]">{{ country.country }}</a>: {{ totalMedalsByCountry[country.country] }} Medals
+
+<div>
+  <app-pie-graph [totalMedalsByCountry]="totalMedalsByCountry"></app-pie-graph>
 </div>
 
