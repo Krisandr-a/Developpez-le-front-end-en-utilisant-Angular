@@ -3,6 +3,7 @@ import { HomeComponent } from '../pages/home/home.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pie-graph',
@@ -26,6 +27,8 @@ export class PieGraphComponent {
   legendPosition: LegendPosition = LegendPosition.Below;
 
   colorScheme = 'cool'
+
+  constructor(private router: Router) {}
   
   ngOnChanges() {
     console.log("Graph data:")
@@ -34,6 +37,13 @@ export class PieGraphComponent {
     console.log(this.totalMedalsByCountry);
     this.transformDataForGraph()*/
   }
+
+  onSelect(data: { name: string; value: number }): void {
+    console.log('Item clicked:', data);
+    // Navigate to the country details page
+    this.router.navigate(['details/', data.name]);
+  }
+
   countriesAndMedals(obj: { [key: string]: any }) {
     return Object.keys(obj);
   }
