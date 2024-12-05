@@ -16,6 +16,9 @@ export class PieGraphComponent {
   // Takes the key:value (country:medals) initialized in HomeComponent
   // @Input() says it will receive data from parent component
   @Input() totalMedalsByCountry: { name: string; value: number; }[] = [];
+  // to delete
+  @Input() MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
+
   //totalMedalsByCountryTransformed: { name: string; value: number; }[] = [];
 
   view: [number, number] = [700, 400];

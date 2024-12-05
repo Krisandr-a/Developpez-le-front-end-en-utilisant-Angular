@@ -4,11 +4,14 @@ import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { PieGraphComponent } from 'src/app/pie-graph/pie-graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LineGraphComponent } from 'src/app/line-graph/line-graph.component';
+import { DetailsComponent } from '../details/details.component';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [PieGraphComponent, NgxChartsModule],
+  imports: [PieGraphComponent, NgxChartsModule, LineGraphComponent, DetailsComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -18,6 +21,7 @@ export class HomeComponent implements OnInit {
   public totalOlympicGames!: number;
   //public totalMedalsByCountry: { [key: string]: number } = {};
   public totalMedalsByCountry: { name: string; value: number; }[] = [];
+  public MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
   constructor(private olympicService: OlympicService) {}
 
@@ -30,7 +34,9 @@ export class HomeComponent implements OnInit {
       this.calculateTotalCountries(data);
       this.calculateTotalOlympicGames(data);
       this.calculateMedalsByCountry(data);
-      console.log(this.totalMedalsByCountry);
+      this.calculateMedalsPerYear(data); 
+      console.log("this.MedalsPerYear");
+      console.log(this.MedalsPerYear);
     });
     
   }
@@ -87,28 +93,44 @@ export class HomeComponent implements OnInit {
   } */
 
  // updated
-calculateMedalsByCountry(countries: Country[] | null): void {
-  if (countries) {
-    // Create the transformed array in the desired format
-    this.totalMedalsByCountry = countries.map((country) => {
-      let totalMedals = 0;
+  calculateMedalsByCountry(countries: Country[] | null): void {
+    if (countries) {
+      // Create the transformed array in the desired format
+      this.totalMedalsByCountry = countries.map((country) => {
+        let totalMedals = 0;
 
-      // Calculate the total medals for the current country
-      country.participations.forEach((participation) => {
-        totalMedals += participation.medalsCount;
+        // Calculate the total medals for the current country
+        country.participations.forEach((participation) => {
+          totalMedals += participation.medalsCount;
+        });
+
+        // Return the object in the desired format
+        return {
+          name: country.country,
+          value: totalMedals,
+        };
       });
-
-      // Return the object in the desired format
-      return {
-        name: country.country,
-        value: totalMedals,
-      };
-    });
-  } else {
-    // If no countries are provided, reset the array
-    this.totalMedalsByCountry = [];
+    } else {
+      // If no countries are provided, reset the array
+      this.totalMedalsByCountry = [];
+    }
   }
-}
+
+  // For each country, find the numbers of medals won each year  
+  // To be passed to Details component
+  private calculateMedalsPerYear(countries: Country[] | null): void {
+    if (countries) {
+      this.MedalsPerYear = countries.map((country) => ({
+        name: country.country,
+        series: country.participations.map((participation) => ({
+          name: participation.year.toString(),
+          value: participation.medalsCount,
+        })),
+      }));
+    } else {
+      this.MedalsPerYear = [];
+    }
+  }
 
   
 
