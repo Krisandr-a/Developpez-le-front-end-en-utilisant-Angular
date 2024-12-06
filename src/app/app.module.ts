@@ -10,10 +10,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieGraphComponent } from './pie-graph/pie-graph.component';
+import { DetailsComponent } from './pages/details/details.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, PieGraphComponent, HomeComponent],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, PieGraphComponent, HomeComponent, DetailsComponent, NotFoundComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

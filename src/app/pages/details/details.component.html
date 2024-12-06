@@ -1,15 +1,33 @@
-<p>details works!</p>
 
-<div>
-    <h2>Country Name: {{ countryName }}</h2>
-    <p>Number of entries: {{ totalParticipations }}</p>
-    <p>Total number of medals: {{ totalMedals }}</p>
-    <p>Total number of athletes: {{ totalAthletes }}</p>
 
-    <h2>Line graph : number of medals per edition</h2>
-</div>
 
-<!--Pass the data to the line graph component-->
-<div>
-    <app-line-graph [countryMedals]="countryMedals"></app-line-graph>
-</div>
+<div class="container">
+    <div class="header">
+      <div class="text-box">{{ countryName }}</div>
+    </div>
+    <div class="stats">
+    <div class="stat-item">
+        <span>Number of entries</span>
+        <br>
+        <span class="stat-number">{{ totalParticipations }}</span>
+    </div>
+    <div class="stat-item">
+        <span>Total number of medals</span>
+        <br>
+        <span class="stat-number">{{ totalMedals }}</span>
+    </div>
+    <div class="stat-item">
+        <span>Total number of athletes</span>
+        <br>
+        <span class="stat-number">{{ totalAthletes }}</span>
+    </div>
+    </div>
+    <!--Pass the data to the line graph component-->
+    <div>
+        <app-line-graph [countryMedals]="countryMedals"></app-line-graph>
+    </div>
+
+    <button class="back-button" (click)="goBack()">Back</button>
+  </div>
+
+

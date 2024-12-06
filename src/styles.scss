@@ -1,1 +1,68 @@
 /* You can add global styles to this file, and also import other style files */
+/* center text box on home and details components */
+body {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Removes default body margin */
+    background-color: #f0f0f0; /* Light background */
+    font-family: Arial, sans-serif; /* Default font */
+  }
+
+.container {
+    display: flex;
+    flex-direction: column; /* Aligns elements vertically */
+    justify-content: flex-start; /* Aligns elements to the top */
+    align-items: center; /* Centers content horizontally */
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 20px; /* Space between header and stats */
+}
+
+.text-box {
+    padding: 10px 20px;
+    background-color: #008489; /* Teal background */
+    color: #ffffff; /* White text */
+    font-size: 1.5rem; /* Adjust text size */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Centers text inside the box */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    width: auto; /* Adjust width to fit content */
+    max-width: 300px; /* Maximum width */
+}
+
+.stats {
+    display: flex; /* Use flexbox for side-by-side layout */
+    justify-content: center; /* Centers the stat items horizontally */
+    gap: 20px; /* Adds space between the stat items */
+}
+
+.stat-item {
+    background-color: #ffffff; /* White background for stats */
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px; /* Rounded corners for stat items */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    font-size: 1rem;
+    color: black; /* Dark text for stats */
+    border: 2px solid #008489; /* Teal border */
+}
+
+.stat-number {
+    font-size: 1.5rem; /* Larger font size for the number */
+    font-weight: bold; /* Bold number */
+    color: black; /* Black color for the number */
+    text-align: center; /* Center the number */
+    display: block; /* Makes sure the number is treated as a block-level element for centering */
+}
+
+.chart {
+    margin-top: 30px;
+  }
+  
+
+  
+  

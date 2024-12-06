@@ -1,21 +1,14 @@
-<p>pie-graph works!</p>
-<p>data passed to pie graph component for pie graph</p>
-<!-- <div *ngFor="let country of countriesAndMedals(totalMedalsByCountry)">
-    <p>{{ country }}: {{ totalMedalsByCountry[country] }} Medals</p>
-</div> -->
-
-<!-- [results]="totalMedalsByCountry" -->
 <ngx-charts-pie-chart
   [view]="view"
   [scheme]="colorScheme"
   [results]="totalMedalsByCountry"
   [gradient]="gradient"
-  [legend]="showLegend"
   [labels]="showLabels"
   [doughnut]="isDoughnut"
-  [legendPosition]="legendPosition"
   (select)="onSelect($event)">
 </ngx-charts-pie-chart>
+
+<!-- Unused : [legend]="showLegend" [legendPosition]="legendPosition" -->
 
 
 

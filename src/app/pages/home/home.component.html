@@ -1,33 +1,26 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
 
 
-<div *ngIf="olympics$ | async as olympicsData; else loading">
-    <div *ngFor="let country of olympicsData">
-      <h3>{{ country.country }}</h3> <!-- Display country name -->
-      <ul>
-        <li *ngFor="let participation of country.participations">
-          <strong>Year:</strong> {{ participation.year }}<br />
-          <strong>City:</strong> {{ participation.city }}<br />
-          <strong>Medals Count:</strong> {{ participation.medalsCount }}<br />
-          <strong>Athletes Count:</strong> {{ participation.athleteCount }}<br />
-        </li>
-      </ul>
+
+<div class="container">
+  <div class="header">
+    <div class="text-box">Medals per Country</div>
+
+  </div>
+  <div class="stats">
+    <div class="stat-item">
+      <span>Number of JOs</span>
+      <br>
+      <span class="stat-number">{{ totalOlympicGames }}</span>
     </div>
-</div>
+    <div class="stat-item">
+      <span>Number of countries</span>
+      <br>
+      <span class="stat-number">{{ totalCountries }}</span>
+    </div>
+  </div>
   
-  <ng-template #loading>
-    <p>Loading data...</p> <!-- Display loading message -->
-  </ng-template>
+</div>
 
-<h2>Medals per Country</h2>
-<h3>Number of JOs</h3>
-<p>{{ totalOlympicGames }}</p>
-
-
-<h3>Number of countries</h3>
-<p>{{ totalCountries }}</p>
 
 
 <div>

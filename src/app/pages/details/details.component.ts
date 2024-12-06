@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Observable, of } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
@@ -27,7 +28,7 @@ export class DetailsComponent implements OnInit {
   public medalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
 
-  constructor(private route: ActivatedRoute, private olympicService: OlympicService) {}
+  constructor(private route: ActivatedRoute, private olympicService: OlympicService, private router: Router) {}
 
   /* ngOnInit(): void {
     // Get the countryName from the route parameter
@@ -63,9 +64,10 @@ export class DetailsComponent implements OnInit {
         console.log(this.countryMedals);
         
       });
-      
-
-
+    }
+    // Navigate back
+    goBack() {
+      this.router.navigate(['/']);  // Navigate to the Home component
     }
 
     // Calculating non-line graph details
