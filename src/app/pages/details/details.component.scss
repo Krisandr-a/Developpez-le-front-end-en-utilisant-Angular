@@ -1,15 +1,32 @@
 .back-button {
-    color: #008489; /* Teal color */
-    text-decoration: none; /* Remove underline */
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #ffffff; /* White background */
-    border: 2px solid #008489; /* Teal border */
+  color: #008489; /* Teal color */
+  text-decoration: none; /* Remove underline */
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5em 1em; /* Use em for responsive spacing */
+  border-radius: 0.5em; /* Rounded corners */
+  background-color: #ffffff; /* White background */
+  border: 2px solid #008489; /* Teal border */
+  display: inline-block; /* Ensure proper spacing and positioning */
+  text-align: center; /* Center the text */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.back-button:hover {
+  background-color: #008489; /* Change background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+@media (max-width: 768px) { /* Tablet and smaller screens */
+  .back-button {
+      font-size: 0.9rem; /* Slightly smaller font */
+      padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
   }
-  
-  .back-button:hover {
-    background-color: #008489; /* Change background on hover */
-    color: #ffffff; /* White text on hover */
+}
+
+@media (max-width: 480px) { /* Mobile devices */
+  .back-button {
+      font-size: 0.8rem; /* Smaller font size for mobile */
+      padding: 0.3em 0.6em; /* Compact padding */
   }
+}

@@ -4,20 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Country } from '../models/Olympic';
 
-/*interface Participation {
-  id: number;
-  year: number;
-  city: string;
-  medalsCount: number;
-  athleteCount: number;
-}
-
-export interface Country {
-  id: number;
-  country: string;
-  participations: Participation[];
-} */
-
 @Injectable({
   providedIn: 'root',
 })

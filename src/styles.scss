@@ -9,59 +9,115 @@ body {
     background-color: #f0f0f0; /* Light background */
     font-family: Arial, sans-serif; /* Default font */
   }
-
-.container {
+  
+  .container {
     display: flex;
     flex-direction: column; /* Aligns elements vertically */
     justify-content: flex-start; /* Aligns elements to the top */
     align-items: center; /* Centers content horizontally */
-    padding: 20px;
-}
-
-.header {
-    margin-bottom: 20px; /* Space between header and stats */
-}
-
-.text-box {
-    padding: 10px 20px;
+    padding: 2rem; /* Use rem for padding */
+  }
+  
+  .header {
+    margin-bottom: 2rem; /* Space between header and stats */
+  }
+  
+  .text-box {
+    padding: 1rem 2rem; /* Adjust padding using rem */
     background-color: #008489; /* Teal background */
     color: #ffffff; /* White text */
-    font-size: 1.5rem; /* Adjust text size */
-    border-radius: 10px; /* Rounded corners */
+    font-size: 1.5rem; /* Adjust text size using rem */
+    border-radius: 0.625rem; /* Rounded corners using rem */
     text-align: center; /* Centers text inside the box */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
     width: auto; /* Adjust width to fit content */
+    max-width: 80%; /* Make the width responsive by setting max-width in percentage */
     max-width: 300px; /* Maximum width */
-}
-
-.stats {
+  }
+  
+  .stats {
     display: flex; /* Use flexbox for side-by-side layout */
     justify-content: center; /* Centers the stat items horizontally */
-    gap: 20px; /* Adds space between the stat items */
-}
-
-.stat-item {
+    gap: 2rem; /* Adds space between the stat items, using rem */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+  }
+  
+  .stat-item {
     background-color: #ffffff; /* White background for stats */
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px; /* Rounded corners for stat items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-    font-size: 1rem;
+    padding: 1rem 2rem; /* Adjust padding using rem */
+    margin: 0.5rem; /* Add margin using rem */
+    border-radius: 0.3125rem; /* Rounded corners for stat items using rem */
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    font-size: 1rem; /* Use rem for font size */
     color: black; /* Dark text for stats */
     border: 2px solid #008489; /* Teal border */
-}
-
-.stat-number {
-    font-size: 1.5rem; /* Larger font size for the number */
+  }
+  
+  .stat-number {
+    font-size: 2rem; /* Larger font size for the number */
     font-weight: bold; /* Bold number */
     color: black; /* Black color for the number */
     text-align: center; /* Center the number */
     display: block; /* Makes sure the number is treated as a block-level element for centering */
-}
-
-.chart {
-    margin-top: 30px;
   }
+  
+  .chart {
+    margin-top: 2rem; /* Use rem for margin */
+  }
+  
+  /* Media queries for responsiveness */
+  
+  /* For tablets */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem; /* Reduce padding */
+    }
+  
+    .text-box {
+      font-size: 1.25rem; /* Adjust font size */
+      padding: 0.75rem 1.5rem; /* Adjust padding */
+    }
+  
+    .stats {
+      flex-direction: column; /* Stack stat items vertically */
+      gap: 1.5rem; /* Reduce space between stat items */
+    }
+  
+    .stat-item {
+      font-size: 0.875rem; /* Adjust font size for smaller screens */
+    }
+  
+    .stat-number {
+      font-size: 1.5rem; /* Reduce number size */
+    }
+  }
+  
+  /* For mobile */
+  @media (max-width: 480px) {
+    .container {
+      padding: 1rem; /* Reduce padding even further */
+    }
+  
+    .text-box {
+      font-size: 1rem; /* Adjust font size */
+      padding: 0.5rem 1rem; /* Adjust padding */
+      max-width: 90%; /* Allow for more flexibility on smaller screens */
+    }
+  
+    .stats {
+      flex-direction: column; /* Stack stat items vertically */
+      gap: 1rem; /* Reduce space between stat items */
+    }
+  
+    .stat-item {
+      font-size: 0.75rem; /* Smaller font size for mobile */
+    }
+  
+    .stat-number {
+      font-size: 1.25rem; /* Reduce number size */
+    }
+  }
+  
   
 
   

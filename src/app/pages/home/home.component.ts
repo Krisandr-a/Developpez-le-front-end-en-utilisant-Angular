@@ -1,25 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { PieGraphComponent } from 'src/app/pie-graph/pie-graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { LineGraphComponent } from 'src/app/line-graph/line-graph.component';
-import { DetailsComponent } from '../details/details.component';
-
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [PieGraphComponent, NgxChartsModule, LineGraphComponent, DetailsComponent],
+  imports: [PieGraphComponent, NgxChartsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Country[] | null> = of(null);
+  private olympicsSubscription!: Subscription;
   public totalCountries!: number;
   public totalOlympicGames!: number;
-  //public totalMedalsByCountry: { [key: string]: number } = {};
   public totalMedalsByCountry: { name: string; value: number; }[] = [];
   public MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
@@ -28,17 +25,21 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.olympicService.loadInitialData(); // Load the data when the component initializes
     // subscribe to the observable create by calling getOlympics
-    this.olympicService.getOlympics().subscribe((data) => {
+    this.olympicsSubscription = this.olympicService.getOlympics().subscribe((data) => {
       // of(): Emit variable amount of values in a sequence and then emits a complete notification.
       this.olympics$ = of(data);
       this.calculateTotalCountries(data);
       this.calculateTotalOlympicGames(data);
       this.calculateMedalsByCountry(data);
       this.calculateMedalsPerYear(data); 
-      console.log("this.MedalsPerYear");
-      console.log(this.MedalsPerYear);
     });
-    
+  }
+
+  // Unsubscribe when the component is destroyed
+  ngOnDestroy(): void {
+    if (this.olympicsSubscription) {
+      this.olympicsSubscription.unsubscribe(); 
+    }
   }
 
   private calculateTotalCountries(countries: Country[] | null): void {
@@ -73,26 +74,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // original
-  /* calculateMedalsByCountry(countries: Country[] | null): void {
-    if (countries) {
-      // Iterate through each country
-      countries.forEach((country) => {
-        let totalMedals = 0;
-
-        // Iterate over the participations of the current country
-        country.participations.forEach((participation) => {
-          // Add the medalsCount of each participation to the total
-          totalMedals += participation.medalsCount;
-        });
-
-        // Set the country as the key and the totalMedals as the value in the medalsByCountry object
-        this.totalMedalsByCountry[country.country] = totalMedals;
-      });
-    }
-  } */
-
- // updated
   calculateMedalsByCountry(countries: Country[] | null): void {
     if (countries) {
       // Create the transformed array in the desired format
@@ -135,13 +116,3 @@ export class HomeComponent implements OnInit {
   
 
 }
-
-/* export class HomeComponent implements OnInit {
-  public olympics$: Observable<Country[] | null> = of(null);
-
-  constructor(private olympicService: OlympicService) {}
-
-  ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
-  }
-} */

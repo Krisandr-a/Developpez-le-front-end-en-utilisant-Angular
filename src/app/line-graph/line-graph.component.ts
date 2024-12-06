@@ -15,12 +15,12 @@ export class LineGraphComponent {
   view: [number, number] = [700, 300];
 
   // options
-  legend: boolean = true;
+  legend: boolean = false;
   showLabels: boolean = true;
-  animations: boolean = true;
+  animations: boolean = false;
   xAxis: boolean = true;
   yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
+  showYAxisLabel: boolean = false;
   showXAxisLabel: boolean = true;
   xAxisLabel: string = 'Dates';
   yAxisLabel: string = 'Medals';
@@ -30,12 +30,6 @@ export class LineGraphComponent {
 
 
   ngOnChanges() {
-    console.log("Line Graph data:")
-    console.log(this.countryMedals);
-    //console.log(this.totalMedalsByCountry);
-    /*console.log(this.totalMedalsByCountryTransformed);
-    console.log(this.totalMedalsByCountry);
-    this.transformDataForGraph()*/
   }
 
 }
