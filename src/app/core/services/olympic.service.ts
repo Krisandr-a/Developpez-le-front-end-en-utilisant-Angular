@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -14,7 +15,9 @@ export class OlympicService {
   private olympics$ = new BehaviorSubject<Country[] | null>(null);
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private router: Router
+  ) {}
 
  
 
@@ -34,6 +37,8 @@ export class OlympicService {
         console.error(error);
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next(null);
+        this.router.navigate(['/404']);
+
         return caught;
       })
     );
@@ -48,7 +53,8 @@ export class OlympicService {
     const countries = this.olympics$.getValue(); // Retrieve the current data from BehaviorSubject
 
     if (!countries) {
-      console.error('Olympics data not loaded.');
+      console.error('Olympics data failed to load.');
+      this.router.navigate(['/404']);
       return null; // Return early if data isn't available
     }
   
@@ -56,6 +62,7 @@ export class OlympicService {
   
     if (!country) {
       console.error(`Country ${name} not found.`);
+      this.router.navigate(['/404']);
       return null;
     }
   

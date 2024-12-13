@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
   public totalMedalsByCountry: { name: string; value: number; }[] = [];
   public MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, 
+    private router: Router) {}
 
   ngOnInit(): void {
     this.olympicService.loadInitialData(); // Load the data when the component initializes

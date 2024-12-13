@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Observable, of, Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
@@ -15,10 +14,10 @@ import { LineGraphComponent } from 'src/app/line-graph/line-graph.component';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent implements OnInit {
-  public countryName: string = '';
-  public totalParticipations?: number = 0;
-  public totalMedals?: number = 0;
-  public totalAthletes?: number = 0;
+  public countryName!: string;
+  public totalParticipations!: number;
+  public totalMedals!: number;
+  public totalAthletes!: number;
   public countryMedals!: { name: string; series: { name: string; value: number; }[]; } | null;
   //from home component
   public olympics$: Observable<Country[] | null> = of(null);
@@ -26,7 +25,7 @@ export class DetailsComponent implements OnInit {
   public medalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
 
-  constructor(private route: ActivatedRoute, private olympicService: OlympicService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {}
 
     ngOnInit(): void {
       // Retrieve the country name from route parameters
@@ -35,6 +34,7 @@ export class DetailsComponent implements OnInit {
     
         if (!country) {
           console.error('Country parameter is missing.');
+          this.router.navigate(['/404']);
           return; // Exit early if the parameter is invalid
         }
     
@@ -61,7 +61,6 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    // Navigate back
     goBack() {
       this.router.navigate(['/']);  // Navigate to the Home component
     }
@@ -72,6 +71,7 @@ export class DetailsComponent implements OnInit {
     
         if (!countries) {
           console.error('Olympics data not loaded yet.');
+          this.router.navigate(['/404']);
           return;
         }
     
@@ -82,6 +82,7 @@ export class DetailsComponent implements OnInit {
           this.totalAthletes = country.participations.reduce((sum, p) => sum + p.athleteCount, 0);
         } else {
           console.error(`Country ${this.countryName} not found.`);
+          this.router.navigate(['/404']);
         }
       });
     }

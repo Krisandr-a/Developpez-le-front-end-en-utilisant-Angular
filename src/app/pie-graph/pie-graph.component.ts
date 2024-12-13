@@ -33,8 +33,8 @@ export class PieGraphComponent {
   ngOnChanges() {
   }
 
+  // Navigate to the country details page
   onSelect(data: { name: string; value: number }): void {
-    // Navigate to the country details page
     this.router.navigate(['details/', data.name]);
   }
 }
