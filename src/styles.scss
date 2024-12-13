@@ -1,15 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
-/* center text box on home and details components */
+/* Global Styles */
 body {
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    height: 100vh; /* Full height of the viewport */
-    margin: 0; /* Removes default body margin */
-    background-color: #f0f0f0; /* Light background */
-    font-family: Arial, sans-serif; /* Default font */
-  }
-  
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  height: 100vh; /* Full height of the viewport */
+  margin: 0; /* Removes default body margin */
+  background-color: #f0f0f0; /* Light background */
+  font-family: Arial, sans-serif; /* Default font */
+}
+
 .container {
   display: flex;
   flex-direction: column; /* Aligns elements vertically */
@@ -32,7 +31,6 @@ body {
   box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
   width: auto; /* Adjust width to fit content */
   max-width: 80%; /* Make the width responsive by setting max-width in percentage */
-  max-width: 300px; /* Maximum width */
 }
 
 .stats {
@@ -62,7 +60,10 @@ body {
 }
 
 .chart {
+  width: 100%; /* Ensure the chart container takes full available width */
+  max-width: 100%; /* Ensure it doesn't spill beyond the screen */
   margin-top: 2rem; /* Use rem for margin */
+  box-sizing: border-box; /* Ensure padding and borders are included in the width calculation */
 }
 
 .back-button {
@@ -84,76 +85,66 @@ body {
   color: #ffffff; /* White text on hover */
 }
 
-@media (max-width: 768px) { /* Tablet and smaller screens */
+
+/* For tablets (768px and smaller) */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem; /* Reduce padding */
+  }
+
+  .text-box {
+    font-size: 1.25rem; /* Adjust font size */
+    padding: 0.75rem 1.5rem; /* Adjust padding */
+  }
+
+  .stats {
+    flex-direction: column; /* Stack stat items vertically */
+    gap: 1.5rem; /* Reduce space between stat items */
+  }
+
+  .stat-item {
+    font-size: 0.875rem; /* Adjust font size for smaller screens */
+  }
+
+  .stat-number {
+    font-size: 1.5rem; /* Reduce number size */
+  }
+
+
+
   .back-button {
-      font-size: 0.9rem; /* Slightly smaller font */
-      padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
+    font-size: 0.9rem; /* Slightly smaller font */
+    padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
   }
 }
 
-@media (max-width: 480px) { /* Mobile devices */
+/* For mobile (480px and smaller) */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem; /* Reduce padding even further */
+  }
+
+  .text-box {
+    font-size: 1rem; /* Adjust font size */
+    padding: 0.5rem 1rem; /* Adjust padding */
+    max-width: 90%; /* Allow for more flexibility on smaller screens */
+  }
+
+  .stats {
+    flex-direction: column; /* Stack stat items vertically */
+    gap: 1rem; /* Reduce space between stat items */
+  }
+
+  .stat-item {
+    font-size: 0.75rem; /* Smaller font size for mobile */
+  }
+
+  .stat-number {
+    font-size: 1.25rem; /* Reduce number size */
+  }
+
   .back-button {
-      font-size: 0.8rem; /* Smaller font size for mobile */
-      padding: 0.3em 0.6em; /* Compact padding */
+    font-size: 0.8rem; /* Smaller font size for mobile */
+    padding: 0.3em 0.6em; /* Compact padding */
   }
 }
-
-
-  
-  /* Media queries for responsiveness */
-  
-  /* For tablets */
-  @media (max-width: 768px) {
-    .container {
-      padding: 1.5rem; /* Reduce padding */
-    }
-  
-    .text-box {
-      font-size: 1.25rem; /* Adjust font size */
-      padding: 0.75rem 1.5rem; /* Adjust padding */
-    }
-  
-    .stats {
-      flex-direction: column; /* Stack stat items vertically */
-      gap: 1.5rem; /* Reduce space between stat items */
-    }
-  
-    .stat-item {
-      font-size: 0.875rem; /* Adjust font size for smaller screens */
-    }
-  
-    .stat-number {
-      font-size: 1.5rem; /* Reduce number size */
-    }
-  }
-  
-  /* For mobile */
-  @media (max-width: 480px) {
-    .container {
-      padding: 1rem; /* Reduce padding even further */
-    }
-  
-    .text-box {
-      font-size: 1rem; /* Adjust font size */
-      padding: 0.5rem 1rem; /* Adjust padding */
-      max-width: 90%; /* Allow for more flexibility on smaller screens */
-    }
-  
-    .stats {
-      flex-direction: column; /* Stack stat items vertically */
-      gap: 1rem; /* Reduce space between stat items */
-    }
-  
-    .stat-item {
-      font-size: 0.75rem; /* Smaller font size for mobile */
-    }
-  
-    .stat-number {
-      font-size: 1.25rem; /* Reduce number size */
-    }
-  }
-  
-  
-
-  
-  

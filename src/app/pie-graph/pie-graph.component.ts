@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, NgModule } from '@angular/core';
+import { Component, Input, OnInit, NgModule, HostListener } from '@angular/core';
 import { HomeComponent } from '../pages/home/home.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,7 +19,7 @@ export class PieGraphComponent {
   // to delete
   @Input() MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
-  view: [number, number] = [700, 400];
+  view: [number, number] = [700, 400]; // Default for desktop
   gradient: boolean = true;
   showLegend: boolean = false;
   showLabels: boolean = true;
@@ -31,6 +31,25 @@ export class PieGraphComponent {
   constructor(private router: Router) {}
   
   ngOnChanges() {
+  }
+
+  // Listen to window resize events
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.adjustChartSize(); // Adjust on window resize
+  }
+
+  // Adjust chart size based on screen width
+  adjustChartSize(): void {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth < 768) {
+      // For tablets and smaller, reduce chart width and height
+      this.view = [screenWidth - 40, 300]; // Allow some margin on the sides
+    } else {
+      // Larger screens (desktop)
+      this.view = [700, 400];
+    }
   }
 
   // Navigate to the country details page
