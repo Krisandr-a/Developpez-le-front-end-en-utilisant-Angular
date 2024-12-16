@@ -1,7 +1,5 @@
-import { Component, Input, OnInit, NgModule, HostListener } from '@angular/core';
-import { HomeComponent } from '../../pages/home/home.component';
+import { Component, Input, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';
 
@@ -13,11 +11,8 @@ import { Router } from '@angular/router';
   styleUrl: './pie-graph.component.scss'
 })
 export class PieGraphComponent {
-  // Takes the key:value (country:medals) initialized in HomeComponent
-  // @Input() says it will receive data from parent component
+  // Takes value initialized in HomeComponent as the Input
   @Input() totalMedalsByCountry: { name: string; value: number; }[] = [];
-  // to delete
-  @Input() MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
   view: [number, number] = [700, 400]; // Default for desktop
   gradient: boolean = true;
@@ -33,21 +28,19 @@ export class PieGraphComponent {
   ngOnChanges() {
   }
 
-  // Listen to window resize events
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    this.adjustChartSize(); // Adjust on window resize
+    this.adjustChartSize();
   }
 
-  // Adjust chart size based on screen width
+  // Used for responsive design instead of CSS due to ngx-charts having its own CSS
   adjustChartSize(): void {
     const screenWidth = window.innerWidth;
-
+    // For tablets and smaller
     if (screenWidth < 768) {
-      // For tablets and smaller, reduce chart width and height
-      this.view = [screenWidth - 40, 300]; // Allow some margin on the sides
+      this.view = [screenWidth - 40, 300]; // Allows some margin on the sides
     } else {
-      // Larger screens (desktop)
+      // For desktop
       this.view = [700, 400];
     }
   }

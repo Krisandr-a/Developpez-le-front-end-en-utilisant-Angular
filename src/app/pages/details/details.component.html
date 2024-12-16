@@ -2,32 +2,39 @@
 
 
 <div class="container">
+    
     <div class="header">
       <div class="text-box">{{ countryName }}</div>
     </div>
+    
     <div class="stats">
-    <div class="stat-item">
-        <span>Number of entries</span>
-        <br>
-        <span class="stat-number">{{ totalParticipations }}</span>
+        <div class="stat-item">
+            <span>Number of entries</span>
+            <br>
+            <span class="stat-number">{{ totalParticipations }}</span>
+        </div>
+        <div class="stat-item">
+            <span>Total number of medals</span>
+            <br>
+            <span class="stat-number">{{ totalMedals }}</span>
+        </div>
+        <div class="stat-item">
+            <span>Total number of athletes</span>
+            <br>
+            <span class="stat-number">{{ totalAthletes }}</span>
+        </div>
     </div>
-    <div class="stat-item">
-        <span>Total number of medals</span>
-        <br>
-        <span class="stat-number">{{ totalMedals }}</span>
-    </div>
-    <div class="stat-item">
-        <span>Total number of athletes</span>
-        <br>
-        <span class="stat-number">{{ totalAthletes }}</span>
-    </div>
-    </div>
+    
     <!--Pass the data to the line graph component-->
     <div>
         <app-line-graph [countryMedals]="countryMedals"></app-line-graph>
     </div>
 
-    <button class="back-button" (click)="goBack()">Back</button>
+    <div>
+        <button class="back-button" (click)="goBack()">Back</button>
+    </div>
+    
+
   </div>
 
 

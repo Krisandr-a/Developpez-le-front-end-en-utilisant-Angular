@@ -1,20 +1,20 @@
 /* Global Styles */
 body {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  height: 100vh; /* Full height of the viewport */
-  margin: 0; /* Removes default body margin */
-  background-color: #f0f0f0; /* Light background */
-  font-family: Arial, sans-serif; /* Default font */
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  margin: 0; 
+  background-color: #f0f0f0; 
+  font-family: Arial, sans-serif;
 }
 
 .container {
   display: flex;
-  flex-direction: column; /* Aligns elements vertically */
-  justify-content: flex-start; /* Aligns elements to the top */
-  align-items: center; /* Centers content horizontally */
-  padding: 2rem; /* Use rem for padding */
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: center; 
+  padding: 2rem; 
 }
 
 .header {
@@ -22,129 +22,129 @@ body {
 }
 
 .text-box {
-  padding: 1rem 2rem; /* Adjust padding using rem */
-  background-color: #008489; /* Teal background */
-  color: #ffffff; /* White text */
-  font-size: 1.5rem; /* Adjust text size using rem */
-  border-radius: 0.625rem; /* Rounded corners using rem */
-  text-align: center; /* Centers text inside the box */
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-  width: auto; /* Adjust width to fit content */
-  max-width: 80%; /* Make the width responsive by setting max-width in percentage */
+  padding: 1rem 2rem; 
+  background-color: #008489; 
+  color: #ffffff; 
+  font-size: 1.5rem; 
+  border-radius: 0.625rem; 
+  text-align: center; 
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); 
+  width: auto; 
+  max-width: 80%; 
 }
 
 .stats {
   display: flex; /* Use flexbox for side-by-side layout */
-  justify-content: center; /* Centers the stat items horizontally */
-  gap: 2rem; /* Adds space between the stat items, using rem */
+  justify-content: center; 
+  gap: 2rem; /* Adds space between the stat items */
   flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 .stat-item {
-  background-color: #ffffff; /* White background for stats */
-  padding: 1rem 2rem; /* Adjust padding using rem */
-  margin: 0.5rem; /* Add margin using rem */
-  border-radius: 0.3125rem; /* Rounded corners for stat items using rem */
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-  font-size: 1rem; /* Use rem for font size */
-  color: black; /* Dark text for stats */
-  border: 2px solid #008489; /* Teal border */
+  background-color: #ffffff; 
+  padding: 1rem 2rem; 
+  margin: 0.5rem; 
+  border-radius: 0.3125rem; 
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); 
+  font-size: 1rem; 
+  color: black; 
+  border: 2px solid #008489; 
 }
 
 .stat-number {
-  font-size: 2rem; /* Larger font size for the number */
-  font-weight: bold; /* Bold number */
-  color: black; /* Black color for the number */
-  text-align: center; /* Center the number */
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: black; 
+  text-align: center; 
   display: block; /* Makes sure the number is treated as a block-level element for centering */
 }
 
 .chart {
-  width: 100%; /* Ensure the chart container takes full available width */
-  max-width: 100%; /* Ensure it doesn't spill beyond the screen */
-  margin-top: 2rem; /* Use rem for margin */
-  box-sizing: border-box; /* Ensure padding and borders are included in the width calculation */
+  width: 100%; 
+  max-width: 100%; 
+  margin-top: 2rem; 
+  box-sizing: border-box; 
 }
 
 .back-button {
-  color: #008489; /* Teal color */
-  text-decoration: none; /* Remove underline */
+  color: #008489; 
+  text-decoration: none; 
   font-size: 1rem;
   font-weight: bold;
-  padding: 0.5em 1em; /* Use em for responsive spacing */
-  border-radius: 0.5em; /* Rounded corners */
-  background-color: #ffffff; /* White background */
-  border: 2px solid #008489; /* Teal border */
-  display: inline-block; /* Ensure proper spacing and positioning */
-  text-align: center; /* Center the text */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+  padding: 0.5em 1em; 
+  border-radius: 0.5em; 
+  background-color: #ffffff; 
+  border: 2px solid #008489; 
+  display: inline-block; 
+  text-align: center; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .back-button:hover {
-  background-color: #008489; /* Change background on hover */
-  color: #ffffff; /* White text on hover */
+  background-color: #008489; 
+  color: #ffffff; 
 }
 
 
-/* For tablets (768px and smaller) */
+/* For tablets */
 @media (max-width: 768px) {
   .container {
-    padding: 1.5rem; /* Reduce padding */
+    padding: 1.5rem; 
   }
 
   .text-box {
-    font-size: 1.25rem; /* Adjust font size */
-    padding: 0.75rem 1.5rem; /* Adjust padding */
+    font-size: 1.25rem; 
+    padding: 0.75rem 1.5rem; 
   }
 
   .stats {
     flex-direction: column; /* Stack stat items vertically */
-    gap: 1.5rem; /* Reduce space between stat items */
+    gap: 1.5rem; 
   }
 
   .stat-item {
-    font-size: 0.875rem; /* Adjust font size for smaller screens */
+    font-size: 0.875rem; 
   }
 
   .stat-number {
-    font-size: 1.5rem; /* Reduce number size */
+    font-size: 1.5rem; 
   }
 
 
 
   .back-button {
-    font-size: 0.9rem; /* Slightly smaller font */
-    padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
+    font-size: 0.9rem; 
+    padding: 0.4em 0.8em; 
   }
 }
 
-/* For mobile (480px and smaller) */
+/* For mobile */
 @media (max-width: 480px) {
   .container {
-    padding: 1rem; /* Reduce padding even further */
+    padding: 1rem; 
   }
 
   .text-box {
-    font-size: 1rem; /* Adjust font size */
-    padding: 0.5rem 1rem; /* Adjust padding */
-    max-width: 90%; /* Allow for more flexibility on smaller screens */
+    font-size: 1rem; 
+    padding: 0.5rem 1rem; 
+    max-width: 90%; 
   }
 
   .stats {
     flex-direction: column; /* Stack stat items vertically */
-    gap: 1rem; /* Reduce space between stat items */
+    gap: 1rem; 
   }
 
   .stat-item {
-    font-size: 0.75rem; /* Smaller font size for mobile */
+    font-size: 0.75rem; 
   }
 
   .stat-number {
-    font-size: 1.25rem; /* Reduce number size */
+    font-size: 1.25rem; 
   }
 
   .back-button {
-    font-size: 0.8rem; /* Smaller font size for mobile */
-    padding: 0.3em 0.6em; /* Compact padding */
+    font-size: 0.8rem; 
+    padding: 0.3em 0.6em; 
   }
 }

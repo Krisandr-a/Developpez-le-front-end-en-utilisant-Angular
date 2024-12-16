@@ -32,22 +32,19 @@ export class LineGraphComponent {
   ngOnChanges() {
   }
 
-  // To resize the charts for mobile: ngx-charts has its own CSS
-  // so @media doesn't work
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    this.adjustChartSize(); // Adjust on window resize
+    this.adjustChartSize();
   }
 
-  // Adjust chart size based on screen width
+  // Used for responsive design instead of CSS due to ngx-charts having its own CSS
   adjustChartSize(): void {
     const screenWidth = window.innerWidth;
-
+    // For tablets and smaller
     if (screenWidth < 768) {
-      // For tablets and smaller, reduce chart width and height
-      this.view = [screenWidth - 40, 300]; // Allow some margin on the sides
+      this.view = [screenWidth - 40, 300]; // Allows some margin on the sides
     } else {
-      // Larger screens (desktop)
+      // For desktop
       this.view = [700, 400];
     }
   }

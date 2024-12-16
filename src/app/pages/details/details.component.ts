@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { LineGraphComponent } from 'src/app/graphs/line-graph/line-graph.component';
@@ -22,7 +22,6 @@ export class DetailsComponent implements OnInit {
   public medalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
   
   private olympicsSubscription: Subscription = new Subscription();
-  public olympicsData$: Country[] | null | undefined;
 
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -30,7 +29,6 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit(): void {
       this.route.params.subscribe((params) => {
-        console.log('Route params:', params); // Check if the countryName is passed
         const country = params['countryName'];
     
         if (!country) {
@@ -45,15 +43,13 @@ export class DetailsComponent implements OnInit {
 
       // Initalizing and subscribing to the Observable
       this.olympicService.loadInitialData();
-      this.olympicsSubscription = this.olympicService.getOlympics().subscribe((data) => {
+      this.olympicsSubscription = this.olympicService.getOlympics().subscribe((countries) => {
         
-        // storing data to pass to method
-        this.olympicsData$ = data;
-        this.calculateCountryStats(); 
-        
+        this.calculateCountryStats(countries); 
         
         // for line chart
-        this.medalsPerYearAllCountries(data);
+        this.medalsPerYearAllCountries(countries);
+
         // Iterates over ngx-charts object to find a specific country
         this.medalsPerYearSelectedCountry(this.countryName);
         
@@ -62,47 +58,23 @@ export class DetailsComponent implements OnInit {
 
     ngOnDestroy(): void {
       if (this.olympicsSubscription) {
-        this.olympicsSubscription.unsubscribe(); // Unsubscribe when the component is destroyed
+        this.olympicsSubscription.unsubscribe(); 
       }
     }
 
     goBack() {
-      this.router.navigate(['/']);  // Navigate to the Home component
+      this.router.navigate(['/']); 
     }
 
-    // Calculating non-line graph details
-    /*private calculateCountryStats(): void {
-      this.olympicService.getOlympics().subscribe((countries) => {
-    
-        if (!countries) {
-          console.error('Olympics data not loaded yet.');
-          this.router.navigate(['/404']);
-          return;
-        }
-    
-        const country = countries.find((c) => c.country === this.countryName);    
-        if (country) {
-          this.totalParticipations = country.participations.length;
-          this.totalMedals = country.participations.reduce((sum, p) => sum + p.medalsCount, 0);
-          this.totalAthletes = country.participations.reduce((sum, p) => sum + p.athleteCount, 0);
-        } else {
-          console.error(`Country ${this.countryName} not found.`);
-          this.router.navigate(['/404']);
-        }
-
-        
-      });
-    } */
-        // experimental method
-        // Calculating non-line graph details for a specific country
-    private calculateCountryStats(): void {
-      if (!this.olympicsData$) {
+    // takes data from subscribed Observable as parameters
+    private calculateCountryStats(countries: Country[] | null): void {
+      if (!countries) {
         console.error('Olympics data not loaded yet.');
         this.router.navigate(['/404']);
         return;
       }
 
-      const country = this.olympicsData$.find((c) => c.country === this.countryName);
+      const country = countries.find((c) => c.country === this.countryName);
       if (country) {
         this.totalParticipations = country.participations.length;
         this.totalMedals = country.participations.reduce((sum, p) => sum + p.medalsCount, 0);
@@ -114,6 +86,7 @@ export class DetailsComponent implements OnInit {
     }
 
     // for use with ngx-charts line graph
+    // takes data from subscribed Observable as parameters
     private medalsPerYearAllCountries(countries: Country[] | null): void {
       if (countries) {
         this.medalsPerYear = countries.map((country) => ({
@@ -127,7 +100,7 @@ export class DetailsComponent implements OnInit {
     }
 
     // for use with ngx-charts line graph
-    medalsPerYearSelectedCountry(countryName: string): void {
+    private medalsPerYearSelectedCountry(countryName: string): void {
       this.countryMedals = this.medalsPerYear.find((country) => country.name === countryName) || null;
     }
     

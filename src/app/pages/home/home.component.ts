@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { PieGraphComponent } from 'src/app/graphs/pie-graph/pie-graph.component';
@@ -13,11 +13,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  //private olympics$: Observable<Country[] | null> = of(null);
   public totalCountries: number = 0;
   public totalOlympicGames: number = 0;
   public totalMedalsByCountry: { name: string; value: number }[] = [];
-  public MedalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
 
   private olympicsSubscription: Subscription = new Subscription();
 
@@ -25,10 +23,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympicService.loadInitialData();
-    this.olympicsSubscription = this.olympicService.getOlympics().subscribe((data) => {
-      this.calculateTotalCountries(data);
-      this.calculateTotalOlympicGames(data);
-      this.calculateMedalsByCountry(data);
+    this.olympicsSubscription = this.olympicService.getOlympics().subscribe((countries) => {
+      this.calculateTotalCountries(countries);
+      this.calculateTotalOlympicGames(countries);
+      this.calculateMedalsByCountry(countries);
     });
   }
 
@@ -62,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   // for use in the pie graph
-  calculateMedalsByCountry(countries: Country[] | null): void {
+  private calculateMedalsByCountry(countries: Country[] | null): void {
     if (countries) {
       this.totalMedalsByCountry = countries.map((country) => {
         let totalMedals = 0;
