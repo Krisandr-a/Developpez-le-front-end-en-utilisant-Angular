@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, NgModule, HostListener } from '@angular/core';
-import { HomeComponent } from '../pages/home/home.component';
+import { HomeComponent } from '../../pages/home/home.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { Country } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { LineGraphComponent } from 'src/app/line-graph/line-graph.component';
+import { LineGraphComponent } from 'src/app/graphs/line-graph/line-graph.component';
 
 @Component({
   selector: 'app-details',
@@ -14,43 +14,48 @@ import { LineGraphComponent } from 'src/app/line-graph/line-graph.component';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent implements OnInit {
-  public countryName!: string;
-  public totalParticipations!: number;
-  public totalMedals!: number;
-  public totalAthletes!: number;
-  public countryMedals!: { name: string; series: { name: string; value: number; }[]; } | null;
-  //from home component
-  public olympics$: Observable<Country[] | null> = of(null);
-  private olympicsSubscription!: Subscription;
+  public countryName: string = '';
+  public totalParticipations: number = 0;
+  public totalMedals: number = 0;
+  public totalAthletes: number = 0;
+  public countryMedals: { name: string; series: { name: string; value: number }[] } | null = null;
   public medalsPerYear: { name: string; series: { name: string; value: number }[] }[] = [];
+  
+  private olympicsSubscription: Subscription = new Subscription();
+  public olympicsData$: Country[] | null | undefined;
 
-
-  constructor(private route: ActivatedRoute, private router: Router, private olympicService: OlympicService) {}
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private olympicService: OlympicService) {}
 
     ngOnInit(): void {
-      // Retrieve the country name from route parameters
       this.route.params.subscribe((params) => {
-        const country = params['countryName']; // This is string | undefined
+        console.log('Route params:', params); // Check if the countryName is passed
+        const country = params['countryName'];
     
         if (!country) {
           console.error('Country parameter is missing.');
           this.router.navigate(['/404']);
-          return; // Exit early if the parameter is invalid
+          return;
         }
     
-        this.countryName = country; // Now we know this is a valid string
-        this.loadCountryDetails();       
+        this.countryName = country;
+           
       });
 
       // Initalizing and subscribing to the Observable
       this.olympicService.loadInitialData();
       this.olympicsSubscription = this.olympicService.getOlympics().subscribe((data) => {
-        // of(): Emit variable amount of values in a sequence and then emits a complete notification.
-        this.olympics$ = of(data);
-        // returns an object in the correct format for an ngx-charts line graph
-        this.calculatemedalsPerYear(data);
+        
+        // storing data to pass to method
+        this.olympicsData$ = data;
+        this.calculateCountryStats(); 
+        
+        
+        // for line chart
+        this.medalsPerYearAllCountries(data);
         // Iterates over ngx-charts object to find a specific country
-        this.medalsForCountry(this.countryName);
+        this.medalsPerYearSelectedCountry(this.countryName);
         
       });
     }
@@ -66,7 +71,7 @@ export class DetailsComponent implements OnInit {
     }
 
     // Calculating non-line graph details
-    private loadCountryDetails(): void {
+    /*private calculateCountryStats(): void {
       this.olympicService.getOlympics().subscribe((countries) => {
     
         if (!countries) {
@@ -84,11 +89,32 @@ export class DetailsComponent implements OnInit {
           console.error(`Country ${this.countryName} not found.`);
           this.router.navigate(['/404']);
         }
+
+        
       });
+    } */
+        // experimental method
+        // Calculating non-line graph details for a specific country
+    private calculateCountryStats(): void {
+      if (!this.olympicsData$) {
+        console.error('Olympics data not loaded yet.');
+        this.router.navigate(['/404']);
+        return;
+      }
+
+      const country = this.olympicsData$.find((c) => c.country === this.countryName);
+      if (country) {
+        this.totalParticipations = country.participations.length;
+        this.totalMedals = country.participations.reduce((sum, p) => sum + p.medalsCount, 0);
+        this.totalAthletes = country.participations.reduce((sum, p) => sum + p.athleteCount, 0);
+      } else {
+        console.error(`Country ${this.countryName} not found.`);
+        this.router.navigate(['/404']);
+      }
     }
 
-    // returns an object in the correct format for an ngx-charts line graph
-    private calculatemedalsPerYear(countries: Country[] | null): void {
+    // for use with ngx-charts line graph
+    private medalsPerYearAllCountries(countries: Country[] | null): void {
       if (countries) {
         this.medalsPerYear = countries.map((country) => ({
           name: country.country,
@@ -97,14 +123,11 @@ export class DetailsComponent implements OnInit {
             value: participation.medalsCount,
           })),
         }));
-      } else {
-        this.medalsPerYear = [];
       }
     }
 
-    // reduce the object medalsPerYear to only the country selected from the pie graph
-    medalsForCountry(countryName: string): void {
-      // Find the country object in MedalsPerYear where name matches countryName
+    // for use with ngx-charts line graph
+    medalsPerYearSelectedCountry(countryName: string): void {
       this.countryMedals = this.medalsPerYear.find((country) => country.name === countryName) || null;
     }
     
